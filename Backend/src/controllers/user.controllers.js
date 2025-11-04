@@ -48,7 +48,8 @@ export const registerUser = asyncHandler(async (req, res) => {
       new ApiResponse(
         201,
         { user: { username, email, fullname }, verificationUrl },
-        "User registered successfully, verification email sent"
+        "User registered successfully, verification email sent",
+        true
       )
     );
 });

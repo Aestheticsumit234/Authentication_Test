@@ -8,7 +8,7 @@ export const VerifyUser = async (req, res, next) => {
     req.header("Authorization")?.replace("Bearer ", "");
 
   if (!token) {
-    throw new ApiError(401, "Unauthorized request");
+    throw new ApiError(401, "Unauthorized request", false);
   }
 
   try {
@@ -17,12 +17,13 @@ export const VerifyUser = async (req, res, next) => {
       "-password -emailVerificationToken -forgotPasswordToken"
     );
 
-    if (!user) throw new ApiError(401, "Unauthorized request");
+    if (!user) throw new ApiError(401, "Unauthorized request", false);
 
     req.user = user;
+
     next();
   } catch (err) {
-    throw new ApiError(401, err?.message || "Unauthorized request");
+    throw new ApiError(401, err?.message || "Unauthorized request", false);
   }
 };
 
